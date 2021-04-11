@@ -4,16 +4,15 @@
 
 package ch.heigvd.ser.labo2;
 
-import ch.heigvd.ser.labo2.coups.Case;
-import ch.heigvd.ser.labo2.coups.CoupSpecial;
-import ch.heigvd.ser.labo2.coups.TypePiece;
-import ch.heigvd.ser.labo2.coups.TypeRoque;
+import ch.heigvd.ser.labo2.coups.*;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 class Main {
@@ -80,7 +79,7 @@ class Main {
 
                     // Compteur utilisé pour suivre les tours
                     int roundCounter = 1;
-
+                    
                     Element coups = partie.getChild("coups");
                     for (Element coup : coups.getChildren("coup")) {
 
@@ -100,25 +99,18 @@ class Main {
                             String depart = coup.getChild("deplacement").getAttributeValue("case_depart");
                             String coupSpecial = coup.getAttributeValue("coup_special");
 
-                            // Obtenir les notations PGN des coups
-                            String piecePGN = piece == null ?
-                                    "" : getTypePiecePGNNotation(piece);
-                            String eliminationPGN = elimination == null ?
-                                    "" : "x" + getTypePiecePGNNotation(elimination);
-                            String promotionPGN = promotion == null ?
-                                    "" : "=" + getTypePiecePGNNotation(promotion);
-                            String caseDepartPGN = getCasePGNNotation(depart);
-                            String caseArriveePGN = getCasePGNNotation(arrivee);
-                            String coupSpecialPGN = coupSpecial == null ?
-                                    "" : CoupSpecial.valueOf(coupSpecial.toUpperCase()).notationPGN();
+                            Case caseDepart = null;
+                            if (depart != null)
+                                caseDepart = new Case(depart.charAt(0), Character.getNumericValue(depart.charAt(1)));
 
-                            // Ecrire dans le fichier
-                            printWriter.write(piecePGN);
-                            printWriter.write(caseDepartPGN);
-                            printWriter.write(eliminationPGN);
-                            printWriter.write(caseArriveePGN);
-                            printWriter.write(promotionPGN);
-                            printWriter.write(coupSpecialPGN);
+                            Case caseArrivee = new Case(arrivee.charAt(0), Character.getNumericValue(arrivee.charAt(1)));
+                            try {
+                                // TypePiece pieceDeplacee, TypePiece elimination, TypePiece promotion, CoupSpecial coupSpecial, Case depart, Case arrivee
+                                Deplacement deplacement = new Deplacement(getTypePiece(piece), getTypePiece(elimination), getTypePiece(promotion), getCoupSpecial(coupSpecial), caseDepart, caseArrivee);
+                                printWriter.write(deplacement.notationPGN());
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
 
                         }
 
@@ -126,7 +118,7 @@ class Main {
                         if (coup.getChild("roque") != null) {
                             // Obtenir le type de roque du fichier XML
                             String roqueType = coup.getChild("roque").getAttributeValue("type");
-                            if (roqueType == "petit_roque") {
+                            if (roqueType.equals("petit_roque")) {
                                 printWriter.write(TypeRoque.valueOf("PETIT").notationPGN());
                             } else {
                                 printWriter.write(TypeRoque.valueOf("GRAND").notationPGN());
@@ -148,24 +140,6 @@ class Main {
     }
 
     /**
-     * Cette methode sert à retourner la notation PGN d'une piece, via l'enum PieceType
-     * @param piece Le string contenant le nom de la piece pout laquelle on desire obtenir la notation PGN
-     * @return la notation PGN pour la piece passee en parametre
-     */
-    public static String getTypePiecePGNNotation(String piece) {
-        return piece == null ? "" : TypePiece.valueOf(piece).notationPGN();
-    }
-
-    /**
-     * Ce methode sert a retourner la notation PGN d'une case, via la classe Case
-     * @param caseStringValue le string contenant le nom de la case
-     * @return la notation PGN pour la case passee en parametre
-     */
-    public static String getCasePGNNotation(String caseStringValue) {
-        return caseStringValue == null ? "" : new Case(caseStringValue.charAt(0), Character.getNumericValue(caseStringValue.charAt(1))).notationPGN();
-    }
-
-    /**
      * Cette methode sert a determiner si on doit afficher ou non le numero du tour,
      * @param counter le compteur utilise pour definir s'il s'agit d'un nouveau tour
      * @return booleen indiquant s'il faut afficher ou non le numero du tour
@@ -175,6 +149,26 @@ class Main {
             return true;
         return false;
     }
+
+
+    /**
+     * Cette methode permet de retourner la notation PGN d'une pièce donne en String
+     * @param piece Le string contenant le nom de la piece
+     * @return La valeur PGN pour la piece, null si il n'y en a pas
+     */
+    public static TypePiece getTypePiece(String piece) {
+        return piece == null ? null : TypePiece.valueOf(piece);
+    }
+
+    /**
+     * Cette methode permet de retourner la notation PGN d'un coupSpecial donne en String
+     * @param coup Le string contenant le nom du coup special
+     * @return La valeur PGN du coup special, null s'il n'y en a pas
+     */
+    public static CoupSpecial getCoupSpecial(String coup){
+        return coup == null ? null : CoupSpecial.valueOf(coup.toUpperCase());
+    }
+
 
 
 }
