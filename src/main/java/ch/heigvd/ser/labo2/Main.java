@@ -85,7 +85,6 @@ class Main {
 
                         // Afficher le numéro de tour
                         if (displayTurnNumber(roundCounter++))
-                            //System.out.print(roundCounter / 2 + " ");
                             printWriter.write(roundCounter / 2 + " ");
 
                         // Si le coup est un deplacement
