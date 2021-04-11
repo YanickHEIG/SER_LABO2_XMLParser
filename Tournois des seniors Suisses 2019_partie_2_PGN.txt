@@ -1,0 +1,5 @@
+1 a4 b5
+2 a4xb5 c5
+3 b6 Nc6
+4 b6xa7 Rb8
+5 a8=Q 
