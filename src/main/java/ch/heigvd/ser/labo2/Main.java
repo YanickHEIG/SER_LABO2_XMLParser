@@ -1,5 +1,5 @@
 /**
- * Noms des étudiants : // TODO : A compléter...
+ * Noms des étudiants : Robin GAUDIN, Yanick THOMANN
  */
 
 package ch.heigvd.ser.labo2;
@@ -16,18 +16,14 @@ import org.jdom2.input.SAXBuilder;
 import java.io.*;
 import java.util.List;
 
-
-// TODO : Vous avez le droit d'ajouter des instructions import si cela est nécessaire
-
 class Main {
 
     public static void main(String... args) throws Exception {
 
         Document document = readDocument(new File("tournois_fse.xml"));
 
-        // TODO : Compléter en une ligne l'initialisation de cette liste d'éléments (c'est la seule ligne que vous pouvez modifier ici.
         Element root = document.getRootElement();
-        List<Element> tournois = root.getChildren("tournois"); /*null /* A compléter en utilisant la variable root */
+        List<Element> tournois = root.getChildren("tournois");
 
         writePGNfiles(tournois);
 
@@ -40,7 +36,6 @@ class Main {
      */
     private static Document readDocument(File file) throws JDOMException, IOException {
 
-        // TODO : A compléter... (ne doit pas faire plus d'une ligne). Vous êtes autorisés à créer des méthodes utilitaires, mais pas des classes
         return (Document) new SAXBuilder().build(file);
 
     }
@@ -60,11 +55,8 @@ class Main {
      */
     private static void writePGNfiles(List<Element> tournois) {
 
-        // TODO : A compléter... selon ce qui est indiqué dans la donnée... vous devez comprendre la DTD fournie avant de faire ceci !
-
         String nomTournoi;
         PrintWriter printWriter = null;
-
 
         // Iteration sur la liste de tournois
         for (Element ts : tournois) {
@@ -73,22 +65,21 @@ class Main {
                 // Nom du tournoi
                 nomTournoi = tournoi.getAttributeValue("nom");
                 Element parties = tournoi.getChild("parties");
-                // Iteration sur les parties
+                // Compteur de partie par tournoi
                 int partieNo = 1;
+                // Iteration sur les parties
                 for (Element partie : parties.getChildren("partie")) {
-                    // Compteur utilisé pour suivre les tours
-                    int roundCounter = 1;
-
-                    // Creer le fichier dans lequel nous allons ecrire
+                    // Definir le nom du fichier dans lequel nous allons ecrire
                     File outFile = new File(nomTournoi + "_partie_" + partieNo++ + "_PGN.txt");
-
-
+                    // Instancier le PrintWriter
                     try {
-                        //FileWriter outFile = new FileWriter(nomTournoi + "_partie_" + partieNo++ + "_PGN.txt");
                         printWriter = new PrintWriter(outFile);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+
+                    // Compteur utilisé pour suivre les tours
+                    int roundCounter = 1;
 
                     Element coups = partie.getChild("coups");
                     for (Element coup : coups.getChildren("coup")) {
@@ -101,10 +92,9 @@ class Main {
                         // Si le coup est un deplacement
                         if (coup.getChild("deplacement") != null) {
 
-                            // Existe pour chaque coup
+                            // Obtenir les valeurs du fichier XML
                             String piece = coup.getChild("deplacement").getAttributeValue("piece");
                             String arrivee = coup.getChild("deplacement").getAttributeValue("case_arrivee");
-                            // Existe pour certains coups
                             String elimination = coup.getChild("deplacement").getAttributeValue("elimination");
                             String promotion = coup.getChild("deplacement").getAttributeValue("promotion");
                             String depart = coup.getChild("deplacement").getAttributeValue("case_depart");
@@ -117,22 +107,12 @@ class Main {
                                     "" : "x" + getTypePiecePGNNotation(elimination);
                             String promotionPGN = promotion == null ?
                                     "" : "=" + getTypePiecePGNNotation(promotion);
-
                             String caseDepartPGN = getCasePGNNotation(depart);
                             String caseArriveePGN = getCasePGNNotation(arrivee);
                             String coupSpecialPGN = coupSpecial == null ?
                                     "" : CoupSpecial.valueOf(coupSpecial.toUpperCase()).notationPGN();
 
-                            // ----- TEST OUTPUT -----
-                            /*System.out.print(piecePGN);
-                            System.out.print(caseDepartPGN);
-                            System.out.print(eliminationPGN);
-                            System.out.print(caseArriveePGN);
-                            System.out.print(promotionPGN);
-                            System.out.print(coupSpecialPGN);
-
-                             */
-
+                            // Ecrire dans le fichier
                             printWriter.write(piecePGN);
                             printWriter.write(caseDepartPGN);
                             printWriter.write(eliminationPGN);
@@ -144,40 +124,52 @@ class Main {
 
                         // Si le coup est un roque
                         if (coup.getChild("roque") != null) {
+                            // Obtenir le type de roque du fichier XML
                             String roqueType = coup.getChild("roque").getAttributeValue("type");
                             if (roqueType == "petit_roque") {
-                                //System.out.print(TypeRoque.valueOf("PETIT").notationPGN());
                                 printWriter.write(TypeRoque.valueOf("PETIT").notationPGN());
                             } else {
-                                //System.out.print(TypeRoque.valueOf("GRAND").notationPGN());
                                 printWriter.write(TypeRoque.valueOf("GRAND").notationPGN());
                             }
                         }
 
                         // Afficher un espace si c'est au tour de noir, sinon un retour a la ligne
                         if (!displayTurnNumber(roundCounter)) {
-                            //System.out.print(" ");
                             printWriter.write(" ");
                         } else {
-                            //System.out.print("\n");
                             printWriter.write("\n");
                         }
                     }
+                    // Fermer le flux d'ecriture
                     printWriter.close();
                 }
             }
         }
     }
 
-
+    /**
+     * Cette methode sert à retourner la notation PGN d'une piece, via l'enum PieceType
+     * @param piece Le string contenant le nom de la piece pout laquelle on desire obtenir la notation PGN
+     * @return la notation PGN pour la piece passee en parametre
+     */
     public static String getTypePiecePGNNotation(String piece) {
         return piece == null ? "" : TypePiece.valueOf(piece).notationPGN();
     }
 
+    /**
+     * Ce methode sert a retourner la notation PGN d'une case, via la classe Case
+     * @param caseStringValue le string contenant le nom de la case
+     * @return la notation PGN pour la case passee en parametre
+     */
     public static String getCasePGNNotation(String caseStringValue) {
         return caseStringValue == null ? "" : new Case(caseStringValue.charAt(0), Character.getNumericValue(caseStringValue.charAt(1))).notationPGN();
     }
 
+    /**
+     * Cette methode sert a determiner si on doit afficher ou non le numero du tour,
+     * @param counter le compteur utilise pour definir s'il s'agit d'un nouveau tour
+     * @return booleen indiquant s'il faut afficher ou non le numero du tour
+     */
     public static boolean displayTurnNumber(int counter) {
         if (counter % 2 != 0)
             return true;
