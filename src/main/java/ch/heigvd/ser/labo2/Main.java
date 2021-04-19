@@ -69,7 +69,7 @@ class Main {
                 // Iteration sur les parties
                 for (Element partie : parties.getChildren("partie")) {
                     // Definir le nom du fichier dans lequel nous allons ecrire
-                    File outFile = new File(nomTournoi + "_partie_" + partieNo++ + "_PGN.txt");
+                    File outFile = new File(nomTournoi + "_partie_" + partieNo++ + ".pgn");
                     // Instancier le PrintWriter
                     try {
                         printWriter = new PrintWriter(outFile);
