@@ -2,9 +2,9 @@
  -----------------------------------------------------------------------------------
  Laboratoire : SER - Laboratoire 2
  Fichier     : ConvertissableEnPGN.java
- Auteur(s)   : Jeremy Zerbib, Guillaume Laubscher, Julien Quartier
- Date        : 14/04/2019
- But         :
+ Auteur(s)   : Robin Gaudin, Yanick Thomann
+ Date        : 25/04/2021
+ But         : Classe de conversion en PGN
  Remarque(s) :
  -----------------------------------------------------------------------------------
 */

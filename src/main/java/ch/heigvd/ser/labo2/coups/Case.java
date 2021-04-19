@@ -2,10 +2,10 @@
  -----------------------------------------------------------------------------------
  Laboratoire : SER - Laboratoire 2
  Fichier     : Case.java
- Auteur(s)   : Jeremy Zerbib, Guillaume Laubscher, Julien Quartier
- Date        : 14/04/2019
- But         : Cree une case
- Remarque(s) :
+ Auteur(s)   : Robin Gaudin, Yanick Thomann
+ Date        : 25/04/2021
+ But         : Classe permettant de gérer les cases
+ Remarque(s) : Implémente l'interface ConvertissableEnPGN
  -----------------------------------------------------------------------------------
 */
 

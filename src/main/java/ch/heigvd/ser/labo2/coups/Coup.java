@@ -2,10 +2,10 @@
  -----------------------------------------------------------------------------------
  Laboratoire : SER - Laboratoire 2
  Fichier     : Coup.java
- Auteur(s)   : Jeremy Zerbib, Guillaume Laubscher, Julien Quartier
- Date        : 14/04/2019
- But         : Classe abstraite definissant un coup
- Remarque(s) :
+ Auteur(s)   : Robin Gaudin, Yanick Thomann
+ Date        : 25/04/2021
+ But         : Classe abstraite définissant un coup
+ Remarque(s) : Implémente l'interface ConvertissableEnPGN
  -----------------------------------------------------------------------------------
 */
 
@@ -39,7 +39,7 @@ public abstract class Coup implements ConvertissableEnPGN {
     /**
      * Cette méthode doit être implémentée dans les sous classes : Deplacement et Roque
      *
-     * @return
+     * @return Retourne la notation PGN qui concerne le déplacement
      */
     protected abstract String notationPGNimplem();
 

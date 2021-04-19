@@ -2,10 +2,10 @@
  -----------------------------------------------------------------------------------
  Laboratoire : SER - Laboratoire 2
  Fichier     : TypePiece.java
- Auteur(s)   : Jeremy Zerbib, Guillaume Laubscher, Julien Quartier
- Date        : 14/04/2019
- But         : Enumeration de toutes les pieces possibles
- Remarque(s) :
+ Auteur(s)   : Robin Gaudin, Yanick Thomann
+ Date        : 25/04/2021
+ But         : Enumération de toutes les pièces possibles
+ Remarque(s) : Implémente l'interface ConvertissableEnPGN
  -----------------------------------------------------------------------------------
 */
 

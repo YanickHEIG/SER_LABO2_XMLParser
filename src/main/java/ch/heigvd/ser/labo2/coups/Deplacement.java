@@ -2,10 +2,10 @@
  -----------------------------------------------------------------------------------
  Laboratoire : SER - Laboratoire 2
  Fichier     : Deplacement.java
- Auteur(s)   : Jeremy Zerbib, Guillaume Laubscher, Julien Quartier
- Date        : 14/04/2019
- But         : Cree un deplacement d'une piece avec les specificites du format PGN
- Remarque(s) :
+ Auteur(s)   : Robin Gaudin, Yanick Thomann
+ Date        : 25/04/2021
+ But         : Crée un déplacement d'une pièce avec les spécificités du format PGN
+ Remarque(s) : Herite de la classe Coup
  -----------------------------------------------------------------------------------
 */
 

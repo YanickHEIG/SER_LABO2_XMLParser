@@ -2,10 +2,10 @@
  -----------------------------------------------------------------------------------
  Laboratoire : SER - Laboratoire 2
  Fichier     : TypeRoque.java
- Auteur(s)   : Jeremy Zerbib, Guillaume Laubscher, Julien Quartier
- Date        : 14/04/2019
- But         : Enumeration definissant le type de coup roque
- Remarque(s) :
+ Auteur(s)   : Robin Gaudin, Yanick Thomann
+ Date        : 25/04/2021
+ But         : Enumération définissant le type de coup roque
+ Remarque(s) : Implémente l'interface ConvertissableEnPGN
  -----------------------------------------------------------------------------------
 */
 

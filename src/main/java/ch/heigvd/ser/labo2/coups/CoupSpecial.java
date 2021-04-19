@@ -2,10 +2,10 @@
  -----------------------------------------------------------------------------------
  Laboratoire : SER - Laboratoire 2
  Fichier     : CoupSpecial.java
- Auteur(s)   : Jeremy Zerbib, Guillaume Laubscher, Julien Quartier
- Date        : 14/04/2019
- But         : Enumeration definissant un coup special
- Remarque(s) :
+ Auteur(s)   : Robin Gaudin, Yanick Thomann
+ Date        : 25/04/2021
+ But         : Enumeration définissant un coup spécial (Mise en échec, mat, partie nulle, roque)
+ Remarque(s) : Implémente l'interface ConvertissableEnPGN
  -----------------------------------------------------------------------------------
 */
 

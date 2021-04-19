@@ -2,10 +2,10 @@
  -----------------------------------------------------------------------------------
  Laboratoire : SER - Laboratoire 2
  Fichier     : Roque.java
- Auteur(s)   : Jeremy Zerbib, Guillaume Laubscher, Julien Quartier
- Date        : 14/04/2019
- But         : Cree un roque qui est un type specifique de coup
- Remarque(s) :
+ Auteur(s)   : Robin Gaudin, Yanick Thomann
+ Date        : 25/04/2021
+ But         : Crée un roque qui est un type spécifique de coup
+ Remarque(s) : Herite de la classe Coup
  -----------------------------------------------------------------------------------
 */
 
